@@ -1,6 +1,6 @@
 # Pledge Of Starlight
 
-<img src="https://github.com/user-attachments/assets/0b526137-7104-4ef4-a171-0ebe4b1b8335" alt="Pledge Of Starlight" width="600"/>
+<img src= "https://github.com/user-attachments/assets/f7d5808b-3d91-420d-8d23-6cce28f1ff9d" alt="Pledge Of Starlight" width="600"/>
 
 
 ### 🖊️ 요약
