@@ -35,7 +35,7 @@ void UPOSMainSkillPanelWidget::SetUpSkillUI()
 		if(SlotData)
 		{
 			SlotData->SlotType = ESlotType::Skill;
-			SlotData->SkillMasterInfo = Data.Value; //Editorble 데이터 SubSystem에서 할당.
+			SlotData->SkillMasterInfo = Data.Value;
 			SlotData->ItemMasterInfo = FItemMasterInfo();	
 		}
 		else
