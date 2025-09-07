@@ -1,11 +1,13 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "PledgeOfStarlight/Struct/POSSkillData.h"
+#include "Animation/AnimMontage.h"
 #include "POSSkillBase.generated.h"
+
+class APledgeOfStarlightCharacter;
 
 UCLASS()
 class PLEDGEOFSTARLIGHT_API APOSSkillBase : public AActor
@@ -34,7 +36,13 @@ protected:
 	UPROPERTY(Category = "POS|Sound", EditDefaultsOnly)
 	TObjectPtr<USoundWave> UsingSound;
 
+	UPROPERTY(Category = "POS|Animation", EditDefaultsOnly)
+	TObjectPtr<UAnimMontage> SkillMontage;
+
 	virtual void BeginPlay() override;
+	
+	UPROPERTY()
+	TWeakObjectPtr<APledgeOfStarlightCharacter> CachedPlayerCharacter;
 
 	UFUNCTION(Category = "POS|Skill")
 	void InitTransform();

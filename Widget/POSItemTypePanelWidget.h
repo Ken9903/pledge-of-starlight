@@ -18,6 +18,7 @@ class PLEDGEOFSTARLIGHT_API UPOSItemTypePanelWidget : public UUserWidget
 	GENERATED_BODY()
 
 protected:
+	
 	UPROPERTY(Category = "POS|Widget", EditDefaultsOnly, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UScrollBox> ItemListSizeBox;
 	
@@ -45,5 +46,7 @@ private:
 
 	UPROPERTY(Category = "POS|Widget", VisibleDefaultsOnly)
 	TObjectPtr<UUserWidget> MenuSlotLineInstance;
+	
+	
 	
 };

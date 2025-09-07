@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 
+/**
+ * 
+ */
 UENUM(BlueprintType)
-enum class ESkillID : uint8
+enum class EElementalType : uint8
 {
-    Default,
-	IceSlash,
-	FireSlash,
-	Temp2,
-	Temp3,
-	BasicHPHeal,
-	BasicMPHeal,
-	Temp6
+	Basic,
+	Fire,
+	Ice,
+	Earth,
+	Electric
 };

@@ -13,7 +13,7 @@ struct FItemData : public FTableRowBase
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(Category = "POS|Item", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "POSItem", EditAnywhere, BlueprintReadWrite)
 	FName Name;
 
 	UPROPERTY(Category = "POS|Item", EditAnywhere, BlueprintReadWrite)
@@ -25,7 +25,7 @@ public:
 	UPROPERTY(Category = "POS|Item", EditAnywhere, BlueprintReadWrite)
 	EItemType ItemType;
 
-	UPROPERTY(Category = "POS|Item", EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = "POS|Item", EditAnywhere, BlueprintReadWrite, meta = (MultiLine = "true"))
 	FText ItemDescription;
 
 	UPROPERTY(Category = "POS|Item", EditAnywhere, BlueprintReadWrite)

@@ -55,6 +55,7 @@ APledgeOfStarlightCharacter::APledgeOfStarlightCharacter()
 
 	PlayerAbility = CreateDefaultSubobject<UPOSPlayerAbility>(TEXT("PlayerAbility"));
 	PlayerInventory = CreateDefaultSubobject<UPOSPlayerInventory>(TEXT("PlayerInventory"));
+	ComboComponent = CreateDefaultSubobject<UPOSComboComponent>(TEXT("ComboComponent"));
 
 	SkillGimmickTrigger = CreateDefaultSubobject<USphereComponent>(TEXT("SkillGimmickTrigger"));
 	SkillGimmickTrigger->SetupAttachment(RootComponent);
@@ -140,8 +141,10 @@ void APledgeOfStarlightCharacter::SetupPlayerInputComponent(UInputComponent* Pla
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APledgeOfStarlightCharacter::Look);
 
+		// Attack (Left Click)
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Started, this, &APledgeOfStarlightCharacter::AttackStarted);
+
 		// UsePreset
-		EnhancedInputComponent->BindAction(PresetActionList[0], ETriggerEvent::Triggered, this, &APledgeOfStarlightCharacter::RunPreset0);
 		EnhancedInputComponent->BindAction(PresetActionList[1], ETriggerEvent::Triggered, this, &APledgeOfStarlightCharacter::RunPreset1);
 		EnhancedInputComponent->BindAction(PresetActionList[2], ETriggerEvent::Triggered, this, &APledgeOfStarlightCharacter::RunPreset2);
 		EnhancedInputComponent->BindAction(PresetActionList[3], ETriggerEvent::Triggered, this, &APledgeOfStarlightCharacter::RunPreset3);
@@ -194,10 +197,12 @@ void APledgeOfStarlightCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void APledgeOfStarlightCharacter::RunPreset0(const FInputActionValue& Value)
+void APledgeOfStarlightCharacter::AttackStarted(const FInputActionValue& Value)
 {
-	PlayerAbility->UsePreset(0);
-	UE_LOG(LogTemp, Log, TEXT("Use"));
+	if (ComboComponent)
+	{
+		ComboComponent->OnAttackInput();
+	}
 }
 
 void APledgeOfStarlightCharacter::RunPreset1(const FInputActionValue& Value)

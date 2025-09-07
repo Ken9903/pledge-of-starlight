@@ -20,10 +20,10 @@ class PLEDGEOFSTARLIGHT_API UPOSItemGameInstanceSubsystem : public UGameInstance
 
 	UPOSItemGameInstanceSubsystem();
 	
-	UFUNCTION(Category = "POS|Item")
+	UFUNCTION(Category = "POS|Item", BlueprintCallable)
 	virtual FItemData GetItemDataFromTable(FName RowName) override;
 
-	UFUNCTION(Category = "POS|Item")
+	UFUNCTION(Category = "POS|Item", BlueprintCallable)
 	virtual FConsumableItemData GetConsumableItemDataFromTable(FName RowName) override;
 
 private:

@@ -10,6 +10,7 @@
 #include "Player/POSPlayerInventory.h"
 #include "Components/SphereComponent.h"
 #include "Interface/POSGimmickInteractInterface.h"
+#include "Player/POSComboComponent.h"
 #include "PledgeOfStarlightCharacter.generated.h"
 
 class USpringArmComponent;
@@ -39,11 +40,14 @@ private:
 	UCameraComponent* FollowCamera;
 
 	//Custom Player Component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = POS|Ability, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = POS_Ability, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UPOSPlayerAbility> PlayerAbility;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = POS|Inventory, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = POS_Inventory, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UPOSPlayerInventory> PlayerInventory;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = POS_Combat, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UPOSComboComponent> ComboComponent;
 
 	UPROPERTY(Category = "POS|Collision", EditDefaultsOnly)
 	TObjectPtr<USphereComponent> SkillGimmickTrigger;
@@ -63,6 +67,10 @@ private:
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
+
+	/** Attack Input Action (Left Click) */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* AttackAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	TArray<UInputAction*> PresetActionList;
@@ -94,6 +102,8 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	void AttackStarted(const FInputActionValue& Value);
 
 	void RunPreset0(const FInputActionValue& Value);
 	void RunPreset1(const FInputActionValue& Value);

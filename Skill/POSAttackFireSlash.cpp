@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "POSAttackIceSlash.h"
+#include "POSAttackFireSlash.h"
 #include "Kismet/GameplayStatics.h"
 #include "PledgeOfStarlight/Interface/POSEnemyInterface.h"
 
-APOSAttackIceSlash::APOSAttackIceSlash()
+APOSAttackFireSlash::APOSAttackFireSlash()
 {
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	
@@ -13,63 +13,63 @@ APOSAttackIceSlash::APOSAttackIceSlash()
 	AttackCollision->SetupAttachment(RootComponent);
 	AttackCollision->SetSphereRadius(200.0f);
 	
-	IceSlashEffect = CreateDefaultSubobject<UNiagaraComponent>(TEXT("NS_POSIceSlash"));
-	IceSlashEffect->SetupAttachment(RootComponent);
+	FireSlashEffect = CreateDefaultSubobject<UNiagaraComponent>(TEXT("NS_POSFireSlash"));
+	FireSlashEffect->SetupAttachment(RootComponent);
 
-	static ConstructorHelpers::FObjectFinder<USoundWave> SoundAsset(TEXT("/Script/Engine.SoundWave'/Game/PledgeOfStarlight/Sound/Skill/SW_POSIceSlash.SW_POSIceSlash'"));
+	static ConstructorHelpers::FObjectFinder<USoundWave> SoundAsset(TEXT("/Script/Engine.SoundWave'/Game/PledgeOfStarlight/Sound/Skill/SW_POSFireSlash.SW_POSFireSlash'"));
 	if (SoundAsset.Succeeded())
 	{
 		UsingSound = SoundAsset.Object;
 	}
 
-	SkillID = ESkillID::IceSlash;
+	SkillID = ESkillID::FireSlash;
 	AttachPosition = FVector(0,0,100);
 	
 }
 
-void APOSAttackIceSlash::BeginPlay()
+void APOSAttackFireSlash::BeginPlay()
 {
 	Super::BeginPlay();
-	AttackCollision->OnComponentBeginOverlap.AddDynamic(this, &APOSAttackIceSlash::OnAttackCollisionOverlap);
+	AttackCollision->OnComponentBeginOverlap.AddDynamic(this, &APOSAttackFireSlash::OnAttackCollisionOverlap);
 	InitTransform();
 	return;
 }
 
-void APOSAttackIceSlash::UseSkill() // 각종 데이터 SubSystem에서 가져오기
+void APOSAttackFireSlash::UseSkill() // 각종 데이터 SubSystem에서 가져오기
 {
 	Super::UseSkill();
-	IceSlashEffect->SetActive(true, true);
+	FireSlashEffect->SetActive(true, true);
 	UGameplayStatics::PlaySound2D(this, UsingSound);
 
 	PlayCollision();
 
 	if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Use Ice Slash"));
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Use Fire Slash"));
 	}
 	return;
 	
 }
-void APOSAttackIceSlash::PlayCollision()
+void APOSAttackFireSlash::PlayCollision()
 {
 	AttackCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	FTimerHandle TimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(
 		TimerHandle, 
 		this, 
-		&APOSAttackIceSlash::OffCollision,  
+		&APOSAttackFireSlash::OffCollision,  
 		CollisionDuration,                   
 		false                   
 	);
 	return;
 }
-void APOSAttackIceSlash::OffCollision()
+void APOSAttackFireSlash::OffCollision()
 {
 	AttackCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	return;
 }
 
-void APOSAttackIceSlash::OnAttackCollisionOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+void APOSAttackFireSlash::OnAttackCollisionOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	IPOSEnemyInterface* POSEnemyInterface = Cast<IPOSEnemyInterface>(OtherActor);

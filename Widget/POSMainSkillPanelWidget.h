@@ -32,6 +32,9 @@ protected:
 	UPROPERTY(Category = "POS|Widget", EditDefaultsOnly)
 	TSubclassOf<UUserWidget> WBP_POSSkillSingleSlot;
 
+	UPROPERTY(Category = "POS|Widget", EditDefaultsOnly, BlueprintReadOnly)
+	TMap<FName, FSkillMasterInfo> EarnedSkillData;
+
 	UFUNCTION(Category = "POS|Skill", BlueprintCallable)
 	void SetUpSkillUI();
 

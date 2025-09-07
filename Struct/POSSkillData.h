@@ -6,6 +6,7 @@
 #include "Engine/DataTable.h"
 #include "PledgeOfStarlight/Enum/POSSkillID.h"
 #include "PledgeOfStarlight/Enum/POSSkillType.h"
+#include "PledgeOfStarlight/Enum/POSElementalType.h"
 #include "POSSkillData.generated.h"
 
 USTRUCT(BlueprintType)
@@ -25,6 +26,9 @@ public:
 
 	UPROPERTY(Category = "POS|Skill", EditAnywhere, BlueprintReadWrite)
 	ESkillType SkillType;
+	
+	UPROPERTY(Category = "POS|Skill", EditAnywhere, BlueprintReadWrite)
+	EElementalType ElementType;
 
 	UPROPERTY(Category = "POS|Skill", EditAnywhere, BlueprintReadWrite, meta = (MultiLine = "true"))
 	FText Description;

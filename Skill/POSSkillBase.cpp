@@ -6,6 +6,8 @@
 #include "POSSkillGameInstanceSubSystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "PledgeOfStarlight/PledgeOfStarlightCharacter.h"
+#include "Animation/AnimInstance.h"
+#include "Animation/AnimMontage.h"
 
 APOSSkillBase::APOSSkillBase()
 {
@@ -19,6 +21,9 @@ APOSSkillBase::APOSSkillBase()
 void APOSSkillBase::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	CachedPlayerCharacter = Cast<APledgeOfStarlightCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	
 	UPOSSkillGameInstanceSubSystem* SkillSubSystem = GetGameInstance()->GetSubsystem<UPOSSkillGameInstanceSubSystem>();
 	if(SkillSubSystem)
 	{
@@ -34,7 +39,15 @@ void APOSSkillBase::BeginPlay()
 
 void APOSSkillBase::UseSkill()
 {
-	// 스킬 기믹 발동, 정보 전달.
+	if (CachedPlayerCharacter.IsValid() && CachedPlayerCharacter->GetMesh() && SkillMontage)
+	{
+		UAnimInstance* AnimInstance = CachedPlayerCharacter->GetMesh()->GetAnimInstance();
+		if (AnimInstance)
+		{
+			AnimInstance->Montage_Play(SkillMontage);
+		}
+	}
+	
 	SendSkillIDToInteractGimmick();
 }
 
@@ -47,9 +60,12 @@ void APOSSkillBase::InitTransform()
 
 void APOSSkillBase::SendSkillIDToInteractGimmick()
 {
-	for (auto Element : Cast<APledgeOfStarlightCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->GimmickInteractObjectList)
+	if (CachedPlayerCharacter.IsValid())
 	{
-		FString EnumName = UEnum::GetValueAsString(SkillID);
-		Element->InteractSkill(FName(EnumName.Replace(TEXT("ESkillID::"), TEXT(""))));
+		for (auto Element : CachedPlayerCharacter->GimmickInteractObjectList)
+		{
+			FString EnumName = UEnum::GetValueAsString(SkillID);
+			Element->InteractSkill(FName(EnumName.Replace(TEXT("ESkillID::"), TEXT(""))));
+		}
 	}
 }
