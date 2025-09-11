@@ -14,7 +14,7 @@
 
 ### 🎬 영상
 
-👉[https://youtu.be/5r7sUG1QFws](https://youtu.be/5r7sUG1QFws)
+👉[https://youtu.be/GKpJ9dk2TnI](https://youtu.be/GKpJ9dk2TnI)
 
 
 > ※ 모든 장면은 게임 내에서 직접 플레이 할 수 있습니다.
