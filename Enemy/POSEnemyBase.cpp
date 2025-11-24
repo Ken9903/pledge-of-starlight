@@ -13,12 +13,8 @@
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Character.h"
 
-// ========================================
-// 생성자
-// ========================================
 APOSEnemyBase::APOSEnemyBase()
 {
-	// 기본 컴포넌트들 생성
 	HitPoint = CreateDefaultSubobject<USceneComponent>(TEXT("HitPoint"));
 	HitPoint->SetupAttachment(GetMesh());
 	
@@ -26,22 +22,15 @@ APOSEnemyBase::APOSEnemyBase()
 	DialogueTrigger->SetupAttachment(GetMesh());
 	DialogueTrigger->SetSphereRadius(150.0f);
 	
-	// AI 상태 초기화
 	CurrentAIState = EEnemyAIState::Patrol;
 }
 
-// ========================================
-// 데미지 처리
-// ========================================
 void APOSEnemyBase::TakeDamage(float Damage, float SoundDelay)
 {
-	// 피격 상태로 변경
 	SetAIState(EEnemyAIState::Hit);
 	
-	// 플레이어와의 상대적 방향에 따른 피격 애니메이션 재생
 	PlayDirectionalHitAnimation();
 	
-	// 피격 사운드 재생 (지연 시간 적용)
 	if (SoundDelay == 0.0f)
 	{
 		PlayHitSound();
@@ -91,7 +80,6 @@ void APOSEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// AI 컨트롤러 참조 저장
 	AIControllerRef = Cast<AAIController>(GetController());
 	
 	// 플레이어 컨트롤러 캐시
@@ -104,7 +92,6 @@ void APOSEnemyBase::PossessedBy(AController* NewController)
 	
 	AIControllerRef = Cast<AAIController>(NewController);
 	
-	// AI 컨트롤러가 BehaviorTree를 실행하도록 설정
 	if (AIControllerRef && BehaviorTree)
 	{
 		AIControllerRef->RunBehaviorTree(BehaviorTree);
@@ -196,14 +183,10 @@ void APOSEnemyBase::PlayDirectionalHitAnimation()
 	}
 }
 
-// ========================================
-// AI 상태 관리
-// ========================================
 void APOSEnemyBase::SetAIState(EEnemyAIState NewState)
 {
 	CurrentAIState = NewState;
 	
-	// AI 컨트롤러의 Blackboard에 상태 업데이트
 	if (AIControllerRef)
 	{
 		UBlackboardComponent* Blackboard = AIControllerRef->GetBlackboardComponent();
@@ -216,7 +199,6 @@ void APOSEnemyBase::SetAIState(EEnemyAIState NewState)
 
 void APOSEnemyBase::RecoverFromHit()
 {
-	// 피격 상태에서 복구하여 패트롤 상태로 변경
 	SetAIState(EEnemyAIState::Patrol);
 }
 

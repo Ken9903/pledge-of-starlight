@@ -6,7 +6,6 @@
 #include "POSNPCGameInstanceSubSystem.h"
 #include "PledgeOfStarlight/Interface/POSPlayerInterface.h"
 
-// Sets default values
 APOSNPCBase::APOSNPCBase()
 {
 	DialogueTrigger = CreateDefaultSubobject<USphereComponent>(TEXT("DialogueTrigger"));
@@ -34,7 +33,6 @@ void APOSNPCBase::InteractSkill(FName SkillID)
 	}
 }
 
-// Called when the game starts or when spawned
 void APOSNPCBase::BeginPlay()
 {
 	Super::BeginPlay();
